@@ -35,7 +35,7 @@ public class Worker implements Runnable {
                     System.out.println("Worker " + name + " failed to process order for "
                             + order.getProduct().getName()
                             + " " + order.getQuantity()
-                            + "x");
+                            + "x, No items in stock");
                 }
 
             }
