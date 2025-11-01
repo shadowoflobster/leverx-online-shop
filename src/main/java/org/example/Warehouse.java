@@ -3,13 +3,17 @@ package org.example;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Warehouse {
-    private ConcurrentHashMap<Product, Integer> stock = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Product, Integer> stock = new ConcurrentHashMap<>();
 
     public Warehouse() {
     }
 
     public void addProduct(Product product, int quantity) {
         stock.put(product, quantity);
+    }
+
+    public ConcurrentHashMap<Product,Integer> getStock(){
+        return stock;
     }
 
     public boolean processOrder(Order order) {
