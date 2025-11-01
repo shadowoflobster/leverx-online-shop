@@ -20,9 +20,7 @@ public class Warehouse {
         //Checks if there is enough quantity in stock to process order
         if (stockQuantity >= orderQuantity) {
             //If TRUE, then subtracts order quantity from stock quantity
-            stock.computeIfPresent(product, (key, quantity) -> {
-                return quantity - orderQuantity;
-            });
+            stock.computeIfPresent(product, (key, quantity) -> quantity - orderQuantity);
             return true;
         }
 
