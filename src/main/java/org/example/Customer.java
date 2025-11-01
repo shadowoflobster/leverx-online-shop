@@ -11,7 +11,9 @@ public class Customer implements Runnable {
     private final BlockingQueue<Order> orders;
     private final ConcurrentHashMap<Product, Integer> catalog;
     private final Random random = new Random();
-    private final int MAX_QUANTITY_PER_ITEM = 10;
+    private static final int MAX_QUANTITY_PER_ITEM = 10;
+    private static final int MIN_ORDERS_PER_RUN = 1;
+    private static final int MAX_ORDERS_PER_RUN = 7;
 
 
     public Customer(String name, double balance, BlockingQueue<Order> orders, ConcurrentHashMap<Product, Integer> catalog) {
@@ -25,7 +27,7 @@ public class Customer implements Runnable {
     @Override
     public void run() {
         try {
-            int orderNumber = random.nextInt(1, 7);
+            int orderNumber = random.nextInt(MIN_ORDERS_PER_RUN, MAX_ORDERS_PER_RUN);
             for (int i = 0; i < orderNumber; i++) {
                 //Create a list using catalog keys(products)
                 List<Product> products = catalog.keySet().stream().toList();
