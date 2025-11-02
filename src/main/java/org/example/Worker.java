@@ -4,7 +4,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class Worker implements Runnable {
     private final String name;
-    private BlockingQueue<Order> orders;
+    private final BlockingQueue<Order> orders;
     private final Warehouse warehouse;
 
 
