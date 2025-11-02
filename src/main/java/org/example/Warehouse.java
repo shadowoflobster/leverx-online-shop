@@ -23,8 +23,8 @@
             int orderQuantity = order.getQuantity();
             int stockQuantity = stock.getOrDefault(product, 0);
 
-            //Checks if there is enough quantity in stock to process order
-            if (stockQuantity >= orderQuantity) {
+            //Checks if there is enough quantity in stock to process order or if customer has enough balance
+            if (stockQuantity >= orderQuantity && order.getCustomer().debitBalance(order.getPrice())) {
                 //If TRUE, then subtracts order quantity from stock quantity
                 stock.computeIfPresent(product, (key, quantity) -> quantity - orderQuantity);
                 analytics.addProcessedOrders(order);
