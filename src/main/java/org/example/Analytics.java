@@ -24,6 +24,11 @@ public class Analytics {
         processedOrders.add(o);
     }
 
+    public void run(){
+        analyse();
+        print();
+    }
+
     public void analyse() {
         orderCount = Math.toIntExact(processedOrders.parallelStream().count());
 
