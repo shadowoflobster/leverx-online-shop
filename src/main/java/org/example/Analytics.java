@@ -41,6 +41,14 @@ public class Analytics {
                 .limit(3)
                 .toList();
     }
+
+    public void print() {
+        System.out.println("Total number of orders: " + orderCount);
+        System.out.println("Total profit: " + profit);
+        System.out.println("Top 3 product: ");
+
+        top3Sales.forEach(m -> System.out.println("Product:" + m.getKey() + ", Sold: " + m.getValue()));
+    }
 }
 
 
