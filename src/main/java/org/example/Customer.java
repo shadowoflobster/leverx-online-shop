@@ -70,5 +70,9 @@ public class Customer implements Runnable {
         }
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
 
 }
