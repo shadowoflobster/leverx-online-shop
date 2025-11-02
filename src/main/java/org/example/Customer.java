@@ -45,7 +45,7 @@ public class Customer implements Runnable {
                     //product quantity is random between 1-10
                     int productQuantity = random.nextInt(1, Math.min(inStock, MAX_QUANTITY_PER_ITEM) + 1);
 
-                    Order newOrder = new Order(selectedProduct, productQuantity);
+                    Order newOrder = new Order(selectedProduct, productQuantity, this);
 
                     orders.put(newOrder);
                 } else {
@@ -58,6 +58,16 @@ public class Customer implements Runnable {
             Thread.currentThread().interrupt();
         }
 
+    }
+
+    //Method for subtracting money from balance
+    public synchronized boolean debitBalance(double amount) {
+        if (this.balance >= amount) {
+            this.balance -= amount;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
