@@ -1,17 +1,62 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.util.Random;
+import java.util.concurrent.*;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Analytics analytics = new Analytics();
+        Warehouse warehouse = new Warehouse(analytics);
+        BlockingQueue<Order> orders = new LinkedBlockingQueue<>();
+        Random random = new Random();
+
+        int customerBalance = 1000;
+        int customerCount = 10;
+        int workerCount = 5;
+        int fixedProductQuantity = 100;
+        double MAX_PRODUCT_PRICE = 20.0;
+
+        String[] productNames =
+                {"Carrot", "Potato", "Apple", "Bread", "Milk", "Egg", "Onion", "Lemon", "Banana", "Avocado"};
+
+        for (int i = 1; i < 10; i++) {
+            warehouse.addProduct(new Product(productNames[i],
+                            random.nextDouble(1, MAX_PRODUCT_PRICE)), /*Giving items random price*/
+                    fixedProductQuantity);
         }
+
+        //Starting threadpool for customers and workers
+        ExecutorService customerExecutor = Executors.newFixedThreadPool(customerCount);
+        ExecutorService workerExecutor = Executors.newFixedThreadPool(workerCount);
+
+        //Create customer threads
+        for (int i = 1; i <= customerCount; i++) {
+            customerExecutor.execute(new Customer("Customer n" + i, customerBalance, orders, warehouse.getStock()));
+        }
+
+        //Create worker threads
+        for (int i = 1; i <= workerCount; i++) {
+            workerExecutor.execute(new Worker("Worker n" + i, orders, warehouse));
+        }
+
+        //Shutting down customer executor to prevent customer/order generation
+        customerExecutor.shutdown();
+        //Wait all customers to submit their tasks (or terminate automatically in 10 seconds)
+        customerExecutor.awaitTermination(10, TimeUnit.SECONDS);
+
+        //Add poison pills to orders queue for each worker
+        for (int i = 0; i < workerCount; i++) {
+            orders.put(new Order(null, 0));
+        }
+
+        //Stop accepting new tasks from the order processor
+        workerExecutor.shutdown();
+        //Wait all worker to finish threads (or terminate automatically in 10 seconds)
+        workerExecutor.awaitTermination(10, TimeUnit.SECONDS);
+
+        //Run analytics
+        analytics.run();
+
+
     }
 }
