@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class Analytics {
@@ -33,6 +32,9 @@ public class Analytics {
 
         profit = processedOrders.parallelStream().mapToDouble(Order::getPrice).sum();
 
+        //Round profit up to 2 decimals
+        profit = Math.floor(profit * 100) / 100;
+
         Map<Product, Integer> productSales = processedOrders.parallelStream()
                 .collect(Collectors.toConcurrentMap(
                         Order::getProduct,
@@ -48,7 +50,7 @@ public class Analytics {
 
     public void print() {
         System.out.println("Total number of orders: " + orderCount);
-        System.out.println("Total profit: " + profit);
+        System.out.println("Total profit: " + profit +"$");
         System.out.println("Top 3 product: ");
 
         top3Sales.forEach(m -> System.out.println("Product:" + m.getKey() + ", Sold: " + m.getValue()));
