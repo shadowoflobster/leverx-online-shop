@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 public class Analytics {
     private int orderCount;
     private double profit;
-    private ConcurrentHashMap<Product, Integer> top3Products;
     private final List<Order> processedOrders = Collections.synchronizedList(new ArrayList<>());
-    private List<Map.Entry<Product, Integer>> top3Sales;
+    private List<Map.Entry<Product, Integer>> top3Sales = Collections.emptyList();
 
 
     public List<Order> getProcessedOrders() {
@@ -24,7 +23,7 @@ public class Analytics {
         processedOrders.add(o);
     }
 
-    public void run(){
+    public void run() {
         analyse();
         print();
     }
