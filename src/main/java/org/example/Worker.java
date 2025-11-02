@@ -20,6 +20,7 @@ public class Worker implements Runnable {
 
             while (true) {
                 Order order = orders.take();
+                //Poison pill
                 if (order.getProduct() == null) {
                     break;
                 }
@@ -31,7 +32,7 @@ public class Worker implements Runnable {
                             + order.getProduct().getName()
                             + " " + order.getQuantity()
                             + "x");
-                }else {
+                } else {
                     System.out.println("Worker " + name + " failed to process order for "
                             + order.getProduct().getName()
                             + " " + order.getQuantity()
