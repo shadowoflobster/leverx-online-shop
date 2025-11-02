@@ -46,7 +46,7 @@ public class Main {
 
         //Add poison pills to orders queue for each worker
         for (int i = 0; i < workerCount; i++) {
-            orders.put(new Order(null, 0));
+            orders.put(new Order(null, 0,null));
         }
 
         //Stop accepting new tasks from the order processor
