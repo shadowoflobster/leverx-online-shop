@@ -4,8 +4,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Warehouse {
     private final ConcurrentHashMap<Product, Integer> stock = new ConcurrentHashMap<>();
+    private final Analytics analytics;
 
-    public Warehouse() {
+    public Warehouse(Analytics analytics) {
+        this.analytics = analytics;
     }
 
     public void addProduct(Product product, int quantity) {
@@ -25,6 +27,7 @@ public class Warehouse {
         if (stockQuantity >= orderQuantity) {
             //If TRUE, then subtracts order quantity from stock quantity
             stock.computeIfPresent(product, (key, quantity) -> quantity - orderQuantity);
+            analytics.addProcessedOrders(order);
             return true;
         }
 
