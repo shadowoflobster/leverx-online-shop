@@ -10,10 +10,10 @@ public class Main {
         BlockingQueue<Order> orders = new LinkedBlockingQueue<>();
         Random random = new Random();
 
-        int customerBalance = 1000;
+        int customerBalance = 50;
         int customerCount = 10;
         int workerCount = 5;
-        int fixedProductQuantity = 100;
+        int fixedProductQuantity = 20;
         double MAX_PRODUCT_PRICE = 20.0;
 
         String[] productNames =
