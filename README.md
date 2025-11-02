@@ -5,7 +5,7 @@
 ### 1. Clone the repository
 
 ~~~bash
-git clone https://github.com/shadowoflobster/leverx-online-shop/tree/main
+git clone https://github.com/shadowoflobster/leverx-online-shop/tree/dev
 cd leverx-online-shop
 ~~~
 
