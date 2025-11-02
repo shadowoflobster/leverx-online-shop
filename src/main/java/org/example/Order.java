@@ -3,10 +3,12 @@ package org.example;
 public class Order {
     private final Product product;
     private final int quantity;
+    private final Customer customer;
 
-    public Order(Product product, int quantity) {
+    public Order(Product product, int quantity, Customer customer) {
         this.product = product;
         this.quantity = quantity;
+        this.customer = customer;
     }
 
     public Product getProduct() {
@@ -19,5 +21,9 @@ public class Order {
 
     public double getPrice() {
         return product.getPrice() * quantity;
+    }
+
+    public Customer getCustomer(){
+        return customer;
     }
 }
