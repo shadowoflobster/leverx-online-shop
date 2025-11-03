@@ -9,14 +9,14 @@ git clone https://github.com/shadowoflobster/leverx-online-shop/tree/dev
 cd leverx-online-shop
 ~~~
 
-### 2. Build with javac 
+### 2. Build with Maven 
 ~~~bash
-javac -d out src/main/java/org/example/*.java
+mvn clean compile
 ~~~
 
 ### 3. Run program
 ~~~bash
-java -cp out org.example.Main
+mvn exec:java
 ~~~
 
 ## Usage
