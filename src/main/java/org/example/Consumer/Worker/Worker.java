@@ -1,4 +1,7 @@
-package org.example;
+package org.example.Consumer.Worker;
+
+import org.example.Consumer.Service.Warehouse;
+import org.example.Model.Payload.Order;
 
 import java.util.concurrent.BlockingQueue;
 

@@ -1,5 +1,12 @@
 package org.example;
 
+import org.example.Consumer.Service.Warehouse;
+import org.example.Consumer.Worker.Worker;
+import org.example.Model.Entity.Product;
+import org.example.Model.Payload.Order;
+import org.example.Producer.Customer;
+import org.example.Reporting.Analytics;
+
 import java.util.Random;
 import java.util.concurrent.*;
 

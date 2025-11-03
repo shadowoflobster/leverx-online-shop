@@ -1,4 +1,7 @@
-package org.example;
+package org.example.Model.Payload;
+
+import org.example.Producer.Customer;
+import org.example.Model.Entity.Product;
 
 public class Order {
     private final Product product;

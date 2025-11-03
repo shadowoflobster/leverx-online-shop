@@ -1,4 +1,7 @@
-package org.example;
+package org.example.Reporting;
+
+import org.example.Model.Entity.Product;
+import org.example.Model.Payload.Order;
 
 import java.util.ArrayList;
 import java.util.Collections;

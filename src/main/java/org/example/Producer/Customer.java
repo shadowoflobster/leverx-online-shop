@@ -1,5 +1,8 @@
-package org.example;
+package org.example.Producer;
 
+
+import org.example.Model.Payload.Order;
+import org.example.Model.Entity.Product;
 
 import java.util.List;
 import java.util.Random;
