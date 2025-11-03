@@ -1,8 +1,8 @@
 package org.example.Consumer.Service;
 
-import org.example.Reporting.Analytics;
 import org.example.Model.Entity.Product;
 import org.example.Model.Payload.Order;
+import org.example.Reporting.Analytics;
 
 import java.util.concurrent.ConcurrentHashMap;
 

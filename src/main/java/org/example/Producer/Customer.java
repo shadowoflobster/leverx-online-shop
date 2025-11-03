@@ -1,12 +1,13 @@
 package org.example.Producer;
 
 
-import org.example.Model.Payload.Order;
 import org.example.Model.Entity.Product;
+import org.example.Model.Payload.Order;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Customer implements Runnable {
     private final String name;
