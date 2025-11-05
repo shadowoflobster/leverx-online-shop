@@ -19,16 +19,12 @@ public class Customer implements Runnable {
     private static final int MAX_ORDERS_PER_RUN = 7;
 
 
-    public Customer(String name, double balance, BlockingQueue<Order> orders, ConcurrentHashMap<Product, Integer> catalog) {
+    public Customer(String name, double balance) {
         this.name = name;
         this.balance = balance;
-        this.orders = orders;
-        this.catalog = catalog;
     }
 
-
-    @Override
-    public void run() {
+    public void makeOrder(BlockingQueue<Order> orders, ConcurrentHashMap<Product,Integer> catalog){
         try {
             int orderNumber = random.nextInt(MIN_ORDERS_PER_RUN, MAX_ORDERS_PER_RUN);
             for (int i = 0; i < orderNumber; i++) {
@@ -60,6 +56,12 @@ public class Customer implements Runnable {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+
+    @Override
+    public void run() {
+
 
     }
 
