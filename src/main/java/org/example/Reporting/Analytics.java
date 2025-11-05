@@ -53,10 +53,10 @@ public class Analytics {
 
     public void print() {
         System.out.println("Total number of orders: " + orderCount);
-        System.out.println("Total profit: " + profit +"$");
+        System.out.println("Total profit: " + profit + "$");
         System.out.println("Top 3 product: ");
 
-        top3Sales.forEach(m -> System.out.printf("Product: %s, Sold: %d%n", m.getKey(),m.getValue()));
+        top3Sales.forEach(m -> System.out.printf("Product: %s, Sold: %d%n", m.getKey(), m.getValue()));
     }
 }
 
