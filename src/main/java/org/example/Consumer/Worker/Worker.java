@@ -26,7 +26,7 @@ public class Worker implements Runnable {
                 Order order = orders.take();
                 //Poison pill
                 if (order.isPoisonPill()) {
-                    isRunning=false;
+                    isRunning = false;
                     continue;
                 }
 
