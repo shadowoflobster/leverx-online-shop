@@ -13,8 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Customer implements Runnable {
     private final String name;
     private double balance;
-    private final BlockingQueue<Order> orders;
-    private final ConcurrentHashMap<Product, Integer> catalog;
     private final Random random = new Random();
     private static final int MAX_QUANTITY_PER_ITEM = 10;
     private static final int MIN_ORDERS_PER_RUN = 1;
