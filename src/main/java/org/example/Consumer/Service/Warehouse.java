@@ -1,5 +1,6 @@
 package org.example.Consumer.Service;
 
+import org.example.Exceptions.InsufficientBalanceException;
 import org.example.Model.Entity.Product;
 import org.example.Model.Payload.Order;
 import org.example.Reporting.Analytics;
@@ -32,8 +33,11 @@ public class Warehouse {
             return false;
         }
 
-        //Debit customer balance, if rejected return false
-        if (!(order.getCustomer().debitBalance(order.getPrice()))) {
+        //Debit customer balance
+        try {
+            order.getCustomer().debitBalance(order.getPrice());
+        }catch (InsufficientBalanceException e){
+            System.out.println(e);
             return false;
         }
 
