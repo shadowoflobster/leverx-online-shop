@@ -7,17 +7,28 @@ public class Order {
     private final Product product;
     private final int quantity;
     private final Customer customer;
+    private final boolean poisonPill;
 
     public Order(Product product, int quantity, Customer customer) {
         this.product = product;
         this.quantity = quantity;
         this.customer = customer;
+        this.poisonPill = false;
     }
 
-    public Order(){
-        this.product=null;
-        this.quantity=0;
-        this.customer=null;
+    public Order() {
+        this.product = null;
+        this.quantity = 0;
+        this.customer = null;
+        this.poisonPill = true;
+    }
+
+    //Static method to create poison pill
+    public static final Order POISON_PILL = new Order();
+
+    //Boolean method to check if this object is poison pill
+    public boolean isPoisonPill() {
+        return poisonPill;
     }
 
     public Product getProduct() {
@@ -32,7 +43,7 @@ public class Order {
         return product.getPrice() * quantity;
     }
 
-    public Customer getCustomer(){
+    public Customer getCustomer() {
         return customer;
     }
 }
