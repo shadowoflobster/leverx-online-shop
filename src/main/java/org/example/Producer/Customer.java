@@ -1,6 +1,7 @@
 package org.example.Producer;
 
 
+import org.example.Exceptions.InsufficientBalanceException;
 import org.example.Model.Entity.Product;
 import org.example.Model.Payload.Order;
 
@@ -65,12 +66,11 @@ public class Customer implements Runnable {
     }
 
     //Method for subtracting money from balance
-    public synchronized boolean debitBalance(double amount) {
+    public synchronized void debitBalance(double amount) {
         if (this.balance >= amount) {
             this.balance -= amount;
-            return true;
         } else {
-            return false;
+            throw new InsufficientBalanceException("Customer has insufficient balance to cover price:" + amount);
         }
     }
 
