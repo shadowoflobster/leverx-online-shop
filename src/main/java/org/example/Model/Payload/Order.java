@@ -40,6 +40,7 @@ public class Order {
     }
 
     public double getPrice() {
+        assert product != null;
         return product.getPrice() * quantity;
     }
 
