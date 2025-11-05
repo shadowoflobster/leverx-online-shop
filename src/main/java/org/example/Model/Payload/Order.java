@@ -7,6 +7,7 @@ public class Order {
     private final Product product;
     private final int quantity;
     private final Customer customer;
+    private boolean isReserved;
     private final boolean poisonPill;
 
     public Order(Product product, int quantity, Customer customer) {
