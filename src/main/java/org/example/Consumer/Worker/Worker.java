@@ -24,7 +24,7 @@ public class Worker implements Runnable {
             while (true) {
                 Order order = orders.take();
                 //Poison pill
-                if (order.getProduct() == null) {
+                if (order.isPoisonPill()) {
                     break;
                 }
 
