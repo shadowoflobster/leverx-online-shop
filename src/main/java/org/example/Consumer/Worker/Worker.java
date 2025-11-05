@@ -19,13 +19,15 @@ public class Worker implements Runnable {
 
     @Override
     public void run() {
+        boolean isRunning = true;
         try {
 
-            while (true) {
+            while (isRunning) {
                 Order order = orders.take();
                 //Poison pill
                 if (order.isPoisonPill()) {
-                    break;
+                    isRunning=false;
+                    continue;
                 }
 
                 boolean process = warehouse.processOrder(order);
