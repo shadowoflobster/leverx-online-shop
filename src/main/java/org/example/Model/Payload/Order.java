@@ -14,6 +14,12 @@ public class Order {
         this.customer = customer;
     }
 
+    public Order(){
+        this.product=null;
+        this.quantity=0;
+        this.customer=null;
+    }
+
     public Product getProduct() {
         return product;
     }
