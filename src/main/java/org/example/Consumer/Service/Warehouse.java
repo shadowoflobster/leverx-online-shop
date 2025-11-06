@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Warehouse {
     private final ConcurrentHashMap<Product, Integer> stock = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Product,Integer> reservedItems = new ConcurrentHashMap<>();
     private final Analytics analytics;
 
     public Warehouse(Analytics analytics) {
@@ -21,6 +22,23 @@ public class Warehouse {
 
     public ConcurrentHashMap<Product, Integer> getStock() {
         return stock;
+    }
+
+    public boolean reserve(Order order){
+        Product product = order.getProduct();
+        int orderQuantity = order.getQuantity();
+        int stockQuantity = stock.getOrDefault(product, 0);
+
+        //Checks if there is enough quantity in stock
+        if (!(stockQuantity >= orderQuantity)) {
+            return false;
+        }
+
+        stock.computeIfPresent(product, (key, quantity) -> quantity - orderQuantity);
+
+        reservedItems.merge(product,orderQuantity, Integer::sum);
+
+        return true;
     }
 
     public boolean processOrder(Order order) {
