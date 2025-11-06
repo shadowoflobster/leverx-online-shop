@@ -30,19 +30,26 @@ public class Worker implements Runnable {
                     continue;
                 }
 
-                boolean process = warehouse.processOrder(order);
+                boolean success;
+                String operation;
 
-                if (process) {
-                    System.out.println("Worker " + name + " successfully processed order for "
-                            + order.getProduct().getName()
-                            + " " + order.getQuantity()
-                            + "x");
+
+                if (order.isReserved()) {
+                    success = warehouse.reserve(order);
+                    operation = "Reserved";
                 } else {
-                    System.out.println("Worker " + name + " failed to process order for "
-                            + order.getProduct().getName()
-                            + " " + order.getQuantity()
-                            + "x, No items in stock OR no balance");
+                    success = warehouse.processOrder(order);
+                    operation = "processed";
+
                 }
+
+
+                System.out.printf("Worker %s %s to %s order for %s x%d%n",
+                        name,
+                        success ? "successfully" : "failed",
+                        operation,
+                        order.getProduct().getName(),
+                        order.getQuantity());
 
             }
         } catch (InterruptedException e) {
