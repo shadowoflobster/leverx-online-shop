@@ -28,8 +28,9 @@ public class Main {
                 {"Carrot", "Potato", "Apple", "Bread", "Milk", "Egg", "Onion", "Lemon", "Banana", "Avocado"};
 
         for (int i = 1; i < 10; i++) {
+            double price = Math.round(random.nextDouble(1, MAX_PRODUCT_PRICE) * 100.0) / 100.0;
             warehouse.addProduct(new Product(productNames[i],
-                            random.nextDouble(1, MAX_PRODUCT_PRICE)), /*Giving items random price*/
+                            price), /*Giving items random price*/
                     fixedProductQuantity);
         }
 
