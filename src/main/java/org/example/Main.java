@@ -2,9 +2,10 @@ package org.example;
 
 import org.example.Consumer.Service.Warehouse;
 import org.example.Consumer.Worker.Worker;
+import org.example.Model.Entity.Customer;
 import org.example.Model.Entity.Product;
 import org.example.Model.Payload.Order;
-import org.example.Producer.Customer;
+import org.example.Producer.CustomerOrderTask;
 import org.example.Reporting.Analytics;
 
 import java.util.Random;
@@ -38,7 +39,8 @@ public class Main {
 
         //Create customer threads
         for (int i = 1; i <= customerCount; i++) {
-            customerExecutor.execute(new Customer("Customer n" + i, customerBalance, orders, warehouse.getStock()));
+            Customer customer = new Customer("Customer n" + i, customerBalance);
+            customerExecutor.execute(new CustomerOrderTask(warehouse.getStock(), orders, customer));
         }
 
         //Create worker threads

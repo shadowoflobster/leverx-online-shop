@@ -1,7 +1,6 @@
 package org.example.Producer;
 
-
-import org.example.Exceptions.InsufficientBalanceException;
+import org.example.Model.Entity.Customer;
 import org.example.Model.Entity.Product;
 import org.example.Model.Payload.Order;
 
@@ -10,22 +9,19 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Customer implements Runnable {
-    private final String name;
-    private double balance;
-    private final BlockingQueue<Order> orders;
+public class CustomerOrderTask implements Runnable {
     private final ConcurrentHashMap<Product, Integer> catalog;
+    private final BlockingQueue<Order> orders;
+    private final Customer customer;
     private final Random random = new Random();
     private static final int MAX_QUANTITY_PER_ITEM = 10;
     private static final int MIN_ORDERS_PER_RUN = 1;
     private static final int MAX_ORDERS_PER_RUN = 7;
 
-
-    public Customer(String name, double balance, BlockingQueue<Order> orders, ConcurrentHashMap<Product, Integer> catalog) {
-        this.name = name;
-        this.balance = balance;
-        this.orders = orders;
+    public CustomerOrderTask(ConcurrentHashMap<Product, Integer> catalog, BlockingQueue<Order> orders, Customer customer) {
         this.catalog = catalog;
+        this.orders = orders;
+        this.customer = customer;
     }
 
 
@@ -50,7 +46,7 @@ public class Customer implements Runnable {
                     //product quantity is random between 1-10
                     int productQuantity = random.nextInt(1, Math.min(inStock, MAX_QUANTITY_PER_ITEM) + 1);
 
-                    Order newOrder = new Order(selectedProduct, productQuantity, this);
+                    Order newOrder = new Order(selectedProduct, productQuantity, customer);
 
                     orders.put(newOrder);
                 } else {
@@ -62,21 +58,5 @@ public class Customer implements Runnable {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
     }
-
-    //Method for subtracting money from balance
-    public synchronized void debitBalance(double amount) {
-        if (this.balance >= amount) {
-            this.balance -= amount;
-        } else {
-            throw new InsufficientBalanceException("Customer has insufficient balance to cover price:" + amount);
-        }
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-
 }
