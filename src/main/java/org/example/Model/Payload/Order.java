@@ -7,14 +7,15 @@ public class Order {
     private final Product product;
     private final int quantity;
     private final Customer customer;
-    private boolean isReserved;
+    private boolean reserved;
     private final boolean poisonPill;
 
-    public Order(Product product, int quantity, Customer customer) {
+    public Order(Product product, int quantity, Customer customer, boolean reserved) {
         this.product = product;
         this.quantity = quantity;
         this.customer = customer;
         this.poisonPill = false;
+        this.reserved = reserved;
     }
 
     public Order() {
@@ -43,6 +44,10 @@ public class Order {
     public double getPrice() {
         assert product != null;
         return product.getPrice() * quantity;
+    }
+
+    public boolean isReserved() {
+        return reserved;
     }
 
     public Customer getCustomer() {
