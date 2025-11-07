@@ -46,7 +46,10 @@ public class CustomerOrderTask implements Runnable {
                     //product quantity is random between 1-10
                     int productQuantity = random.nextInt(1, Math.min(inStock, MAX_QUANTITY_PER_ITEM) + 1);
 
-                    Order newOrder = new Order(selectedProduct, productQuantity, customer);
+                    //generated order has 30% chance of being reserve
+                    boolean chanceOfBeingReserved = Math.random() < 0.3;
+
+                    Order newOrder = new Order(selectedProduct, productQuantity, customer, chanceOfBeingReserved);
 
                     orders.put(newOrder);
                 } else {
